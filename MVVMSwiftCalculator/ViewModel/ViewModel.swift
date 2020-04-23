@@ -6,52 +6,47 @@
 //  Copyright © 2020 Vlad Zhokhov. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
+/// Класс вью модели
 class ViewModel {
 
-	var operands: Operands!
+	/// слабой ссылкой держим view
+	weak var calculatorView: UIView?
+	///  модель данных
+	var model = Operands(firstOperand: 0, secondOperand: 0)
 
-	var result:Double = 0
-	var firstOperand: Double { return operands.firstOperand } // первый операнд
-	var secondOperand: Double { return operands.secondOperand } // второй
+	private var result: Double = 0
 
-	typealias calculateCallBack = (_ status: Bool) -> Void
-	var calcCallback:calculateCallBack?
-
-	/// вычисление выражения c двумя операндами
-	private func operationWithTwoOperand(operation: (Double, Double) -> Double) {
-		result = operation(firstOperand, secondOperand)
+	init(view: UIView) {
+		calculatorView = view
 	}
 
-	func calculate(firstOperand: Double, secondOperand: Double, operationSign: Int) {
-
-		switch operationSign {
-		case 10 :
-			print("сложение")
-			operationWithTwoOperand{$0 + $1}
-		case 11 :
-			print("вычитание")
-			operationWithTwoOperand{$0 - $1}
-		case 12 :
-			print("умножение")
-			operationWithTwoOperand{$0 * $1}
-		case 13 :
-			print("деление")
-			operationWithTwoOperand{$0 / $1}
-		default: break
-		}
-	}
-
-	//MARK:- verifyUserWith
-	fileprivate func verifyUserWith(firstOperand: Double, secondOperand: Double) {
-			operands = Operands(firstOperand: firstOperand, secondOperand: secondOperand)
-			self.calcCallback?(true)
-	}
-
-	//MARK:- loginCompletionHandler
-	func loginCompletionHandler(callBack: @escaping calculateCallBack) {
-		self.calcCallback = callBack
+	/// Реактивное вычисление значения
+	func calculate(firstOperand: Double, secondOperand: Double, operationSign: Int) -> String {
+			switch operationSign {
+					case 10 :
+						model.firstOperand = firstOperand
+						model.secondOperand = secondOperand
+						result = model.firstOperand + model.secondOperand
+						print("Результат сложения =  \(result)")
+					case 11 :
+						model.firstOperand = firstOperand
+						model.secondOperand = secondOperand
+						result = model.firstOperand - model.secondOperand
+						print("Результат вычитания = \(result)")
+					case 12 :
+						model.firstOperand = firstOperand
+						model.secondOperand = secondOperand
+						result = model.firstOperand * model.secondOperand
+						print("Результат умножения = \(result)")
+					case 13 :
+						model.firstOperand = firstOperand
+						model.secondOperand = secondOperand
+						result = model.firstOperand / model.secondOperand
+						print("Рузельтат деления = \(result)")
+					default: break }
+		return String(result)
 	}
 }
 

@@ -240,6 +240,7 @@ class CalculatorView: UIView {
 	private lazy var equalsButton: UIButton = {
 		let button = UIButton()
 		button.translatesAutoresizingMaskIntoConstraints = false
+	//	button.addTarget(self, action: #selector(equlitySignPressed), for: .touchUpInside)
 		button.addTarget(self, action: #selector(equlitySignPressed), for: .touchUpInside)
 		button.setTitle("=", for: .normal)
 		button.backgroundColor = .systemOrange
@@ -293,6 +294,7 @@ class CalculatorView: UIView {
 	}
 
 	private func setupView() {
+
 		addSubviews(zeroDigitButton,
 					oneDigitButton,
 					twoDigitButton,
@@ -451,11 +453,14 @@ class CalculatorView: UIView {
 		if stillTypingSecondOperand {
 			if stillTyping {
 
+				// через delegateVM.calculate() {}
+
 				resultLabel.text! += String(sender.tag)
 				print("Продолжаем вводить цифры для второго операнда")
 
 				secondModel = (resultLabel.text! as NSString).doubleValue
 
+				
 				switch operationSign {
 				case 10 :
 					tupaResult = firstModel + secondModel
@@ -481,6 +486,7 @@ class CalculatorView: UIView {
 				print("Вводим второй операнд")
 				stillTyping = true
 
+				// через delegateVM.calculate() {}
 				secondModel = (resultLabel.text! as NSString).doubleValue
 
 				switch operationSign {
