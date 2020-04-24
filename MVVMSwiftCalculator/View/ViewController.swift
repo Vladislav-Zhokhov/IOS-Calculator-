@@ -298,7 +298,7 @@ class ViewController: UIViewController {
 
 		let buttonSize = ( screenWidth - 25 ) / 4
 		let zeroButtonWidth = buttonSize * 2 + 5
-		let resultHeight = buttonSize * 2
+		let resultHeight = buttonSize 
 
 		NSLayoutConstraint.activate([
 
@@ -393,7 +393,7 @@ class ViewController: UIViewController {
 			resultLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
 			resultLabel.bottomAnchor.constraint(equalTo: clearButton.topAnchor, constant: -5),
 
-			mvvmResultLabel.heightAnchor.constraint(equalToConstant: resultHeight),
+			mvvmResultLabel.topAnchor.constraint(equalTo: view.topAnchor, constant: 15),
 			mvvmResultLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 25),
 			mvvmResultLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -15),
 			mvvmResultLabel.bottomAnchor.constraint(equalTo: resultLabel.topAnchor, constant: -5),

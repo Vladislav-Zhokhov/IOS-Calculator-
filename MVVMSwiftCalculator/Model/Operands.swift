@@ -8,6 +8,7 @@
 
 import Foundation
 
+// Модель содержит операнды 
 struct Operands {
 	var firstOperand: Double = 0 // первый операнд
 	var secondOperand: Double = 0// второй операнд
