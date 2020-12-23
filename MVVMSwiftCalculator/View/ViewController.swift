@@ -8,6 +8,10 @@
 
 import UIKit
 
+public enum ErrorCalculate: String {
+	case divedOnZero = "DevideError"
+}
+
 /// В данном случае ViewController выступает в роли View
 class ViewController: UIViewController {
 
@@ -27,7 +31,7 @@ class ViewController: UIViewController {
 		set {
 			let value = "\(newValue)"
 			let valueArray = value.components(separatedBy: ".")
-			if valueArray[1] == "0" {
+			if valueArray[1] != nil && valueArray[1] == "0" {
 				resultLabel.text = "\(valueArray[0])"
 			} else {
 				resultLabel.text = "\(value)"
@@ -266,6 +270,43 @@ class ViewController: UIViewController {
 		view.backgroundColor = .black
 		setupView()
 		viewModel = ViewModel(view: view)
+		setAccessibilityIdentifiers()
+	}
+
+//	func testSumExample() {
+//        let app = XCUIApplication()
+//        app.launch()
+//		app.buttons["twoDigit"].tap()
+//		app.buttons["sumButton"].tap()
+//		app.buttons["twoDigit"].tap()
+//
+//		let resultLabel = app.staticTexts["4.0"]
+//        XCTAssertEqual(resultLabel.label, "4.0")
+//    }
+
+	private func setAccessibilityIdentifiers() {
+		//additionButton.accessibilityLabel = "sumButton"
+		zeroDigitButton.accessibilityIdentifier = "zeroDigit"
+		oneDigitButton.accessibilityIdentifier = "oneDigit"
+		twoDigitButton.accessibilityIdentifier = "twoDigit"
+		threeDigitButton.accessibilityIdentifier = "threeDigit"
+		fourDigitButton.accessibilityIdentifier = "fourDigit"
+		fiveDigitButton.accessibilityIdentifier = "fiveDigit"
+		sixDigitButton.accessibilityIdentifier = "sixDigit"
+		sevenDigitButton.accessibilityIdentifier = "sevenDigit"
+		eightDigitButton.accessibilityIdentifier = "eightDigit"
+		nineDigitButton.accessibilityIdentifier = "nineDigit"
+
+		additionButton.accessibilityIdentifier = "sumButton"
+		equalsButton.accessibilityIdentifier = "eqaulButton"
+		subtractionButton.accessibilityIdentifier = "subtractionButton"
+		multiplicationButton.accessibilityIdentifier = "multiplicationButton"
+		divisionButton.accessibilityIdentifier = "divisionButton"
+		clearButton.accessibilityIdentifier = "clearButton"
+		dotButton.accessibilityIdentifier = "dotButton"
+
+		mvvmResultLabel.accessibilityIdentifier = "mvvmResultLabel"
+		resultLabel.accessibilityIdentifier = "resultLabel"
 	}
 
 	private func setupView() {
@@ -427,6 +468,10 @@ class ViewController: UIViewController {
 				let res = viewModel?.calculate(firstOperand: firstOperand,
 											   secondOperand: secondOperand,
 											   operationSign: operationSign)
+				if res == ErrorCalculate.divedOnZero.rawValue {
+					mvvmResultLabel.text! = "Error"
+					return
+				}
 				mvvmResultLabel.text! = res!
 			}
 		} else {

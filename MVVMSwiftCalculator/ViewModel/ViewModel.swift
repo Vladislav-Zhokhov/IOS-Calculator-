@@ -43,10 +43,23 @@ class ViewModel {
 					case 13 :
 						model.firstOperand = firstOperand
 						model.secondOperand = secondOperand
-						result = model.firstOperand / model.secondOperand
-						print("Рузельтат деления = \(result)")
-					default: break }
+						let result = MathOperationClass.execute(firstDigit: firstOperand,
+																secondDigit: secondOperand,
+																operation: .divide)
+						return result
+//						if !(model.secondOperand == 0 || Int(model.secondOperand) < 10 ^ -8) {
+//							result = try model.firstOperand / model.secondOperand
+//							print("Рузельтат деления = \(result)")
+//						} else {
+//							print("Деление на ноль запрешено")
+//							return ErrorCalculate.divedOnZero.rawValue
+//				}
+			default: return "error" }
 		return String(result)
+	}
+
+	func testSumm() {
+
 	}
 }
 
